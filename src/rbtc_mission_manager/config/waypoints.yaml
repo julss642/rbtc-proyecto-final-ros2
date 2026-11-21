@@ -1,0 +1,6 @@
+mission:
+  frame_id: map
+  waypoints:
+    - {name: punto_A, x: 1.60, y: 0.00, yaw: 0.00}
+    - {name: punto_B, x: 1.60, y: 1.60, yaw: 1.57}
+    - {name: punto_C, x: 0.00, y: 1.60, yaw: 3.14}
