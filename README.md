@@ -84,4 +84,4 @@ El lanzamiento principal emplea el plugin DiffDrive de Gazebo, que recibe `/cmd_
 - Mapa 2D guardado en `rbtc_bringup/maps/rbtc_map.yaml` y `rbtc_map.pgm`.
 - Nav2 y AMCL activos; el servicio `/start_mission` inició y completó los tres waypoints.
 
-El archivo `evidencias/` contiene capturas y grabaciones sin audio del proceso. Se puede añadir narración en la edición del video.
+El archivo `evidencias/` contiene capturas y las tres grabaciones narradas del proceso.
