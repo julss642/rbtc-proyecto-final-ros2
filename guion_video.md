@@ -1,38 +1,52 @@
-# Guion para el video de sustentación
+# Guion de voz para los videos
 
-El material se grabó sin audio para que puedan añadir sus voces y hacer la edición. Duración sugerida: 3 a 4 minutos. Pueden repartirse el relato entre Juliana y Alejandro.
+Las grabaciones son silenciosas para que puedan añadir voces y música en la edición. Este guion está separado según los tres clips incluidos en `evidencias/`. Pueden repartirse las intervenciones entre Juliana y Alejandro. Ajusten las pausas a lo que se vea en su edición.
 
-## 1. Presentación — 15 s
+## Video 1 — Simulación en Gazebo
 
-**Imagen:** título del proyecto y breve vista del robot en Gazebo.  
-**Decir:** “Somos Juliana Solorza y Alejandro Huertas. En este proyecto integramos la simulación y navegación autónoma de un robot diferencial con ROS 2 Humble, Gazebo y Nav2.”
+**Archivo:** `02_gazebo_robot.mp4` · aproximadamente 20 segundos.
 
-## 2. Modelo y control — 30 s
+**0:00–0:05 — Mundo y robot**  
+“Aquí se observa el mundo de prueba creado en Gazebo, con el robot diferencial y dos obstáculos. El modelo se describe con Xacro e incluye ruedas, LiDAR e IMU.”
 
-**Imagen:** `02_gazebo_robot.mp4`; mostrar el robot y los obstáculos.  
-**Decir:** “Partimos de una descripción propia en Xacro con base, ruedas, LiDAR e IMU. Probamos dos formas de controlar las ruedas: el plugin DiffDrive de Gazebo y `ros2_control` con `diff_drive_controller`. En ambos casos enviamos velocidad y observamos el desplazamiento y la odometría.”
+**0:05–0:13 — Control**  
+“Probamos el movimiento con el plugin DiffDrive de Gazebo, que recibe `/cmd_vel` y genera `/wheel/odometry`. También activamos la alternativa `ros2_control` con `diff_drive_controller`; ambas configuraciones movieron el robot y publicaron odometría.”
 
-## 3. Sensores y estimación — 25 s
+**0:13–0:20 — Cierre del clip**  
+“Esta simulación es la base para probar la estimación de movimiento, el mapeo y la navegación antes de llevar el sistema a un robot físico.”
 
-**Imagen:** captura RViz o pantalla con los tópicos `/scan`, `/imu` y `/odometry/filtered`.  
-**Decir:** “El LiDAR publica el escaneo del entorno y la IMU mide la orientación y la velocidad angular. `robot_localization` combina estas mediciones con la odometría de las ruedas mediante un EKF 2D. El resultado se publica en `/odometry/filtered` y en la transformación `odom` a `base_footprint`.”
+## Video 2 — Exploración y mapa en RViz
 
-## 4. Mapeo — 35 s
+**Archivo:** `03_recorrido_SLAM_RViz.mp4` · 75 segundos. Si el video final se recorta, conserva el recorrido y el mapa que aparece en pantalla.
 
-**Imagen:** primeros 35 segundos de `03_recorrido_SLAM_RViz.mp4` y después `04_mapa_final_RViz.png`.  
-**Decir:** “Con SLAM Toolbox recorrimos el entorno mientras RViz mostraba el escaneo y el mapa que se iba construyendo. Al terminar guardamos el mapa en formato YAML y PGM, con una resolución de cinco centímetros por celda. También verificamos las transformaciones del robot.”
+**0:00–0:12 — Inicio del recorrido**  
+“Con el mundo en marcha, iniciamos SLAM Toolbox y hacemos un recorrido controlado. El LiDAR publica `/scan`; el EKF combina la odometría de ruedas y la IMU para estimar el movimiento.”
 
-## 5. AMCL y planificación — 35 s
+**0:12–0:35 — Escaneo y construcción**  
+“En RViz se ve cómo las lecturas del LiDAR se incorporan al mapa. Las zonas ocupadas corresponden a obstáculos detectados; las zonas libres son espacio observado y las áreas no recorridas pueden permanecer desconocidas.”
 
-**Imagen:** `05_navegacion_mision_Nav2.mp4`; enseñar mapa, costmaps y trayectoria.  
-**Decir:** “Después cargamos el mapa en Nav2. AMCL localizó el robot y los costmaps representaron los obstáculos. El planificador generó una ruta sobre el mapa y el controlador envió las velocidades al robot.”
+**0:35–0:55 — Interpretación**  
+“SLAM estima simultáneamente la trayectoria y el mapa. La calidad depende de la cobertura y de mantener coherentes el reloj simulado y las transformaciones entre `map`, `odom` y el robot.”
 
-## 6. Servicio de misión y resultado — 30 s
+**0:55–1:15 — Mapa guardado**  
+“Al terminar guardamos el mapa en formatos YAML y PGM, con resolución de cinco centímetros por celda. Este archivo se reutiliza después para la localización y la navegación.”
 
-**Imagen:** terminar el clip de Nav2 con `06_waypoints_alcanzados.png`; incluir una sobreimpresión con `/start_mission` y el mensaje de misión completada.  
-**Decir:** “Para automatizar el recorrido implementamos `/start_mission`. El nodo lee los puntos desde un archivo YAML y los entrega a Nav2 mediante `nav2_simple_commander`. La prueba final alcanzó los tres waypoints y terminó correctamente.”
+## Video 3 — Nav2, AMCL y misión
 
-## 7. Cierre — 10 s
+**Archivo:** `05_navegacion_mision_Nav2.mp4` · aproximadamente 30 segundos.
 
-**Imagen:** enlace del repositorio.  
-**Decir:** “El código, la configuración, el mapa y las evidencias están disponibles en el repositorio de GitHub enlazado en el informe. Con esto mostramos desde el modelo y la integración de sensores hasta una misión autónoma ejecutada en simulación.”
+**0:00–0:08 — Localización**  
+“Cargamos el mapa guardado en Nav2. AMCL estima la pose del robot a partir del LiDAR y el mapa. En RViz vemos el estado de localización y los costmaps que representan los obstáculos.”
+
+**0:08–0:18 — Planificación**  
+“El planificador calcula una ruta hacia los objetivos y el controlador envía velocidades al robot. La ruta se ejecuta en el marco `map` usando la odometría filtrada para el movimiento continuo.”
+
+**0:18–0:25 — Servicio propio**  
+“La misión se inicia mediante el servicio ROS `/start_mission`. El nodo lee tres waypoints de un archivo YAML y los envía a Nav2 con `nav2_simple_commander`.”
+
+**0:25–0:30 — Resultado**  
+“La ejecución validada alcanzó los tres waypoints y terminó correctamente. El código, el mapa y las evidencias están enlazados en el repositorio incluido en el informe.”
+
+## Cierre opcional en pantalla
+
+Mostrar el enlace `https://github.com/julss642/rbtc-proyecto-final-ros2` y la captura `06_waypoints_alcanzados.png`. No narren resultados adicionales que no aparezcan en las evidencias.
