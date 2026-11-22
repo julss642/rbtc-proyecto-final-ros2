@@ -75,6 +75,10 @@ Los puntos están en `src/rbtc_mission_manager/config/waypoints.yaml`. Se usan c
 
 El lanzamiento principal emplea el plugin DiffDrive de Gazebo, que recibe `/cmd_vel` y publica `/wheel/odometry`. La alternativa `simulation_ros2_control.launch.py` activa `gz_ros2_control`, `joint_state_broadcaster` y `diff_drive_controller`; el controlador recibe `/diff_drive_controller/cmd_vel_unstamped` y publica `/diff_drive_controller/odom`. Ambos modos se activaron y desplazaron el robot durante la validación.
 
+## Respuestas a la guía
+
+Las respuestas a las preguntas de comparación, EKF, SLAM, AMCL y Nav2 están en [preguntas_guia.md](preguntas_guia.md). Se distinguen las observaciones registradas de los aspectos que no se midieron cuantitativamente.
+
 ## Verificaciones registradas
 
 - Compilación de los tres paquetes con `colcon build --symlink-install`.
