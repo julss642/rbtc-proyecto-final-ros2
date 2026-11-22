@@ -20,8 +20,6 @@
 
 **¿Qué resolución tiene el mapa?** 0,05 m por celda (5 cm/celda); el mapa guardado tiene 223 × 223 celdas.
 
-**¿Qué errores se observan?** En las capturas hay bordes de ocupación irregulares y zonas desconocidas fuera de lo explorado. No se calculó error métrico contra una verdad de terreno; los artefactos son compatibles con discretización, incertidumbre del escaneo y deriva de odometría.
-
 **¿Cómo afecta la velocidad del robot al SLAM?** A mayor velocidad o aceleración, aumenta el desplazamiento entre escaneos y puede empeorar su correspondencia, deformando el mapa. Una velocidad moderada y giros suaves ayudan a solapar lecturas, con el costo de tardar más.
 
 ## AMCL
